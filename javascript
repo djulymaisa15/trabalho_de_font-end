@@ -7,43 +7,50 @@
   <style>
     body {
       margin: 0;
-      overflow: hidden; /* impede a barra de rolagem */
-      background-color: #e0f7e0;
+      overflow: hidden;
+      background-color: #cfe8b8;
     }
-    img {
+
+    #img {
       position: absolute;
       width: 200px;
       height: auto;
+      left: 0;
+      top: 0;
     }
   </style>
 </head>
 <body>
-  <img id="img" src="fazenda.jpeg" alt="Fazenda">
+  <!-- A imagem precisa estar na mesma pasta que este arquivo HTML -->
+  <img id="img" src="fazenda.jpeg" alt="Imagem da Fazenda">
 
   <script>
-    // Posições e velocidades iniciais
-    let x = 0, y = 0;
-    let vx = 3, vy = 2;
     const img = document.getElementById("img");
+    let x = 0, y = 0;       // posição
+    let vx = 3, vy = 2;     // velocidade
 
-    // Função para movimentar a imagem
     function mover() {
+      // Atualiza posição
       x += vx;
       y += vy;
 
-      // Faz a imagem "bater" nas bordas da tela
-      if (x + img.width > window.innerWidth || x < 0) vx *= -1;
-      if (y + img.height > window.innerHeight || y < 0) vy *= -1;
+      // Pega largura e altura visível da tela
+      const largura = window.innerWidth;
+      const altura = window.innerHeight;
 
-      // Atualiza a posição da imagem
+      // Rebater nas bordas
+      if (x + img.width >= largura || x <= 0) vx *= -1;
+      if (y + img.height >= altura || y <= 0) vy *= -1;
+
+      // Aplica posição atual
       img.style.left = x + "px";
       img.style.top = y + "px";
 
-      requestAnimationFrame(mover); // movimento contínuo e suave
+      // Chama de novo para continuar o movimento
+      requestAnimationFrame(mover);
     }
 
     mover(); // inicia o movimento
   </script>
 </body>
 </html>
-
