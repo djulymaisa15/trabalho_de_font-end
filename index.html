@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Imagem se Movendo</title>
+  <title>Imagem em Movimento</title>
   <style>
+    /* Remove margens e impede rolagem */
     body {
       margin: 0;
-      overflow: hidden; /* impede rolagem */
-      background-color: #d4f0c0; /* cor de fundo */
+      overflow: hidden;
+      background-color: #bde5a1; /* cor de fundo */
     }
 
+    /* Define estilo da imagem */
     #img {
-      position: absolute; /* permite mover a imagem livremente */
+      position: absolute; /* permite mover pela tela */
       width: 200px;       /* tamanho da imagem */
       height: auto;
       left: 0;
@@ -21,14 +23,16 @@
   </style>
 </head>
 <body>
-  <!-- A imagem deve estar na mesma pasta que este arquivo -->
+  <!-- A imagem precisa estar na mesma pasta que este arquivo -->
   <img id="img" src="fazenda.jpeg" alt="Imagem da Fazenda">
 
   <script>
+    // Posições e velocidades iniciais
+    let x = 0, y = 0;
+    let vx = 3, vy = 2;
     const img = document.getElementById("img");
-    let x = 0, y = 0;    // posição inicial
-    let vx = 3, vy = 2;  // velocidade horizontal e vertical
 
+    // Função que move a imagem pela tela
     function mover() {
       x += vx;
       y += vy;
@@ -36,17 +40,19 @@
       const largura = window.innerWidth;
       const altura = window.innerHeight;
 
-      // Faz a imagem "bater" e voltar nas bordas
+      // Inverte direção ao bater nas bordas
       if (x + img.width >= largura || x <= 0) vx *= -1;
       if (y + img.height >= altura || y <= 0) vy *= -1;
 
+      // Atualiza posição da imagem
       img.style.left = x + "px";
       img.style.top = y + "px";
 
-      requestAnimationFrame(mover); // movimento contínuo
+      // Mantém o movimento contínuo e suave
+      requestAnimationFrame(mover);
     }
 
-    mover(); // inicia o movimento
+    mover(); // Inicia o movimento
   </script>
 </body>
 </html>
